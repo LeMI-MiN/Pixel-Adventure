@@ -8,6 +8,7 @@ TagManager:
   - Goal
   - Trap
   - Item
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Item
   - Trap
   - Goal
-  - 
+  - Wall
   - 
   - 
   - 
@@ -48,17 +49,20 @@ TagManager:
   - name: Ground
     uniqueID: 3255797285
     locked: 0
-  - name: Object
+  - name: Wall
     uniqueID: 1810177109
     locked: 0
-  - name: Player
+  - name: Object
     uniqueID: 788348731
     locked: 0
-  - name: Effect
+  - name: Player
     uniqueID: 741429557
     locked: 0
-  - name: UI(Canvus)
+  - name: Effect
     uniqueID: 1776212613
+    locked: 0
+  - name: UI(Canvus)
+    uniqueID: 170942985
     locked: 0
   m_RenderingLayers:
   - Default
