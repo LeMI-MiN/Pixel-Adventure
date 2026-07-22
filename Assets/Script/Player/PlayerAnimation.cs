@@ -21,6 +21,7 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetFloat("YVelocity", rb.linearVelocity.y);
         anim.SetTrigger("DoubleJump");
         anim.SetBool("IsWallSliding",controller.isWallSliding);
+        anim.SetBool("IsHit", controller.isHit);
     }
 
 }

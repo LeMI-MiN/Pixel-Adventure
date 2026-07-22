@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,14 +41,27 @@ public class PlayerController : MonoBehaviour
     // Double Jump
     private bool canDoubleJump;
 
+    // Hit
+    public bool isHit;
+    private Vector3 startPosition;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Hit
+        startPosition = transform.position;
     }
 
     private void Update()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
+
+        // Hit
+        if (isHit)
+        {
+            return;
+        }
 
         // Ground Check
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
@@ -136,11 +150,37 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Hit
+        if (isHit)
+        {
+            return;
+        }
+
+        // WallSliding
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         if (isWallSliding && rb.linearVelocity.y < -wallSlideSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
         }
+    }
+
+    public void Hit()
+    {
+        StartCoroutine(HitRoutine());
+    }
+
+    public void Respawn()
+    {
+        transform.position = startPosition;
+        rb.linearVelocity = Vector2.zero;
+        isHit = false;
+    }
+
+    public IEnumerator HitRoutine()
+    {
+        isHit = true;
+        yield return new WaitForSeconds(0.5f);
+        Respawn();
     }
 }

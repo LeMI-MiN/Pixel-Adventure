@@ -2,15 +2,31 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Rotation Chain
+    [SerializeField]
+    private float rotateSpeed = 60f;
+
+
+private void Update()
     {
-        
+        // Rotate Chain
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        // Hit Log
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Hit");
+        }
+
+        // Hit
+        PlayerController player = other.GetComponent<PlayerController>();
+
+        if (player != null)
+        {
+            player.Hit();
+        }
     }
 }
