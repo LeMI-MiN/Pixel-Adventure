@@ -150,11 +150,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Hit
-        if (isHit)
-        {
-            return;
-        }
 
         // WallSliding
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
@@ -167,14 +162,21 @@ public class PlayerController : MonoBehaviour
 
     public void Hit()
     {
+        if (isHit)
+        {
+            return;
+        }
         StartCoroutine(HitRoutine());
     }
 
-    public void Respawn()
+    public void Respawn()   
     {
         transform.position = startPosition;
         rb.linearVelocity = Vector2.zero;
         isHit = false;
+
+        canDoubleJump = true;
+        isWallSliding = false;
     }
 
     public IEnumerator HitRoutine()
