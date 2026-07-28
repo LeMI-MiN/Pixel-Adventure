@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-
+    // Clear Panel
+    [SerializeField]
+    private GameObject clearPanel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }
@@ -20,7 +22,8 @@ public class Goal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Clear");
+            clearPanel.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
 }
