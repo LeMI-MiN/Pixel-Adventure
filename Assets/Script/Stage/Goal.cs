@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    // Clear Panel
-    [SerializeField]
-    private GameObject clearPanel;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -22,8 +18,7 @@ public class Goal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            clearPanel.SetActive(true);
-            Time.timeScale = 0f;
+            GameManager.Instance.Clear();
         }
     }
 }

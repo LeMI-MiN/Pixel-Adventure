@@ -121,6 +121,8 @@ public class PlayerController : MonoBehaviour
             if (isGround)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+
+                SoundManager.Instance.PlayJump();
             }
 
             // Double Jump
@@ -183,6 +185,16 @@ public class PlayerController : MonoBehaviour
     {
         isHit = true;
         yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.TakeDamage();
+        if (GameManager.Instance.IsGameOver())
+        {
+            yield break;
+        }
         Respawn();
+
+        GameManager.Instance.GameOver();
+
+        SoundManager.Instance.PlayHit();
     }
 }

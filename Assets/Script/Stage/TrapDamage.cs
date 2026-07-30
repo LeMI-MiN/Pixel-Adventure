@@ -11,7 +11,7 @@ public class TrapDamage : MonoBehaviour
 
             if (player != null)
             {
-                player.Hit();
+                player.StartCoroutine(player.HitRoutine());
             }
         }
     }

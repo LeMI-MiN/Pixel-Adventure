@@ -20,6 +20,9 @@ public class RockHead : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        // Player Targeting
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
         startPos = transform.position;
     }
 
@@ -38,10 +41,14 @@ public class RockHead : MonoBehaviour
     IEnumerator Attack()
     {
         isMoving = true;
-        Vector3 downPos = startPos + Vector3.down * 5f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, LayerMask.GetMask("Ground"));
+        Vector3 downPos = hit.point;
 
         while (Vector3.Distance(transform.position, downPos) > 0.05f)
         {
+            // Debuging Helping
+            Debug.DrawRay(transform.position, Vector2.down * 10f, Color.red);
+
             transform.position = Vector3.MoveTowards(transform.position, downPos, fallSpeed * Time.deltaTime);
 
             yield return null;
