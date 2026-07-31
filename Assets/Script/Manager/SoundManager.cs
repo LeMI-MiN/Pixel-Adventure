@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip jumpClip;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip clearClip;
+    [SerializeField] private AudioClip oneUpClip;
 
     private void Awake()
     {
@@ -30,5 +31,13 @@ public class SoundManager : MonoBehaviour
     public void PlayClear()
     {
         sfxSource.PlayOneShot(clearClip);
+    }
+
+    public void Play1UP()
+    {
+        if (oneUpClip != null)
+        {
+            sfxSource.PlayOneShot(oneUpClip);
+        }
     }
 }

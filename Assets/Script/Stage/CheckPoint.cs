@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    private bool isActive;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (isActive)
+            return;
+
+        if (!other.CompareTag("Player"))
+            return;
+
+        PlayerController player = other.GetComponent<PlayerController>();
+
+        if (player == null)
+            return;
+
+        player.SetCheckpoint(transform.position);
+        animator.SetTrigger("Active");
+        isActive = true;
     }
 }

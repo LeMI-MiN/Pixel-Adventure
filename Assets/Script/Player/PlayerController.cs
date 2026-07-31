@@ -190,11 +190,16 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.IsGameOver())
         {
             yield break;
-        }
+        }   
         Respawn();
 
-        GameManager.Instance.GameOver();
+        isHit = false;
 
         SoundManager.Instance.PlayHit();
+    }
+
+    public void SetCheckpoint(Vector3 position)
+    {
+        startPosition = position;
     }
 }

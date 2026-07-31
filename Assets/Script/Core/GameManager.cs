@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxLife = 3;
     private int currentLife;
 
+    // Life UI
+    [SerializeField] private GameObject[] lifeUI;
+
     private void Awake()
     {
         if (Instance == null)
@@ -37,6 +40,9 @@ public class GameManager : MonoBehaviour
 
         // Life
         currentLife = maxLife;
+
+        // Life UI
+        UpdateLifeUI();
     }
 
     public void Clear()
@@ -59,15 +65,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
     public void TakeDamage()    // 1Loss
     {
         currentLife--;
+
         Debug.Log("Life : " + currentLife);
+
+        UpdateLifeUI();
 
         if (currentLife <= 0)
         {
@@ -82,10 +86,42 @@ public class GameManager : MonoBehaviour
             currentLife++;
         }
         Debug.Log("Life : " + currentLife);
+
+        UpdateLifeUI();
     }
 
     public bool IsGameOver()
     {
         return currentLife <= 0;
+    }
+
+    private void UpdateLifeUI()
+    {
+        for (int i = 0; i < lifeUI.Length; i++)
+        {
+            lifeUI[i].SetActive(i < currentLife);
+        }
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
+    }
+
+    public void NextStage()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    public void BackToTitle()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
     }
 }

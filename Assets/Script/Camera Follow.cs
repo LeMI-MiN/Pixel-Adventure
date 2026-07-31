@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
-
     // Smooth Camera
-    [SerializeField] private Transform target;
+    [SerializeField] private Transform player;
     [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private Vector3 offset;
 
@@ -15,11 +13,10 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float maxX;
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
+    
+    private void Awake()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -28,7 +25,7 @@ public class CameraFollow : MonoBehaviour
         transform.position = new Vector3(player.position.x, player.position.y, -10);
 
         // Smooth Camera
-        Vector3 targetPosition = target.position + offset;
+        Vector3 targetPosition = player.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
 
         // Camera Clamp
